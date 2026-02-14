@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Ntandoyenkosi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+        :root {
+            --bg: #0f172a; 
+            --accent: #a78bfa; 
+            --secondary: #f472b6; 
+            --text: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        body {
+            background-color: var(--bg);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+        }
+
+        /* --- STEP 1: THE ENVELOPE --- */
+        #splash {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(-2deg); }
+        }
+
+        .envelope-main {
+            width: 220px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .wax-seal {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+        }
+
+        /* --- STEP 2: MAIN CONTENT --- */
+        #content {
+            display: none;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            animation: slideUp 1s ease;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .glass-card {
+            background: var(--glass);
+            border-radius: 32px;
+            padding: 40px 25px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        /* --- TUNING GAME --- */
+        #game-container {
+            margin: 10px 0 30px 0;
+            padding: 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .signal-grid { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+
+        .signal-node { 
+            font-size: 1.8rem; cursor: pointer; opacity: 0.2; filter: grayscale(1);
+            transition: 0.3s;
+        }
+
+        .signal-node.active { opacity: 1; filter: grayscale(0); transform: scale(1.25); }
+
+        /* --- MESSAGE CONTENT --- */
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; margin-bottom: 20px; color: #fff; }
+
+        .message-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .highlight { color: var(--accent); font-weight: 600; }
+
+        /* --- BUTTONS --- */
+        .btn-main {
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            color: white;
+            padding: 20px 40px;
+            border-radius: 20px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(167, 139, 250, 0.3);
+        }
+
+        #noBtn {
+            background: transparent;
+            color: #64748b;
+            border: none;
+            margin-top: 25px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: underline;
+        }
+
+        /* --- SUCCESS --- */
+        #success { display: none; padding: 60px 20px; text-align: center; }
+
+        .particle { position: fixed; pointer-events: none; z-index: 3000; animation: floatUp 3.5s forwards linear; }
+        @keyframes floatUp { 
+            0% { transform: translate(var(--startX), var(--startY)) scale(0); opacity: 1; } 
+            100% { transform: translate(var(--endX), -10vh) scale(1.2); opacity: 0; } 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STEP 1: THE HOOK -->
+    <div id="splash">
+        <p style="letter-spacing: 3px; font-size: 0.75rem; color: #94a3b8; margin-bottom: 20px; font-weight: 600;">FOR NTANDOYENKOSI</p>
+        <div class="envelope-wrapper" onclick="openLetter()">
+            <div class="envelope-main">
+                <div class="wax-seal">N</div>
+            </div>
+        </div>
+        <p style="margin-top: 30px; font-family: 'Playfair Display'; font-style: italic; color: #cbd5e1;">Tap to open this digital bridge.</p>
+    </div>
+
+    <!-- STEP 2: THE CONTENT -->
+    <div id="content">
+        <div class="glass-card">
+            
+            <!-- THE TUNING GAME -->
+            <div id="game-container">
+                <p style="font-weight: 600; margin: 0; color: #fff;">Connecting...</p>
+                <p style="font-size: 0.8rem; color: #94a3b8;">Tap the 3 signals to unlock the message.</p>
+                <div class="signal-grid">
+                    <div class="signal-node" data-target="true" onclick="tune(this)">✨</div>
+                    <div class="signal-node" onclick="tune(this)">☁️</div>
+                    <div class="signal-node" data-target="true" onclick="tune(this)">💜</div>
+                    <div class="signal-node" onclick="tune(this)">☁️</div>
+                    <div class="signal-node" data-target="true" onclick="tune(this)">💫</div>
+                </div>
+            </div>
+
+            <div id="main-letter" style="display: none;">
+                <h1>Hi Ntandoyenkosi,</h1>
+                
+                <div class="message-text">
+                    I know that miles can make the world feel huge, but I’ve always believed that <span class="highlight">distance is just a detail</span> when it comes to meeting someone truly interesting.
+                    <br><br>
+                    I’m reaching out because I’m genuinely curious about you. I want to know what your world looks like, what makes you laugh, and the things that stay on your mind. 
+                    <br><br>
+                    It’s rare to come across someone who catches your attention like you have, and I didn't want to let the distance be an excuse to not say hello. I’d love to bridge the gap and <span class="highlight">actually get to know you.</span>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; color: #a78bfa;">Would you be open to a FaceTime or Video call date soon?</p>
+                    <button id="yesBtn" class="btn-main" onclick="showSuccess()">I'd be open to that! 📱</button>
+                    <br>
+                    <button id="noBtn" onmouseover="moveNo()">The distance is too much for me</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 3: SUCCESS -->
+    <div id="success">
+        <div class="glass-card">
+            <div style="font-size: 3.5rem; margin-bottom: 20px;">🕊️</div>
+            <h1>I'm glad you said yes.</h1>
+            <p style="color: #cbd5e1; line-height: 1.8; font-size: 1.05rem;">
+                Distance might be there, but I think the conversation will be worth it. I'm looking forward to hearing your voice and getting to know the real you.
+                <br><br>
+                You can reach me at <span style="color: #fff; font-weight: 600;">+27 61 709 4664</span> or simply text me back on the platform where you received this link.
+            </p>
+            <p style="margin-top: 40px; font-family: 'Dancing Script'; font-size: 1.6rem; color: #a78bfa;">Talk to you soon, Ntandoyenkosi. <br> — Thuto</p>
+        </div>
+    </div>
+
+    <script>
+        let nodesFound = 0;
+        let yesScale = 1;
+
+        function spawnParticle(symbol) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.innerHTML = symbol;
+            const startX = Math.random() * 100;
+            p.style.setProperty('--startX', startX + 'vw');
+            p.style.setProperty('--startY', '100vh');
+            p.style.setProperty('--endX', (startX + (Math.random() - 0.5) * 35) + 'vw');
+            p.style.left = '0'; p.style.top = '0';
+            p.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 3500);
+        }
+
+        function openLetter() {
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                window.scrollTo(0,0);
+            }, 800);
+        }
+
+        function tune(el) {
+            if (el.getAttribute('data-target') === 'true' && !el.classList.contains('active')) {
+                el.classList.add('active');
+                nodesFound++;
+                if (nodesFound === 3) {
+                    setTimeout(() => {
+                        document.getElementById('game-container').style.display = 'none';
+                        document.getElementById('main-letter').style.display = 'block';
+                        for(let i=0; i<25; i++) spawnParticle('✨');
+                    }, 500);
+                }
+            }
+        }
+
+        function moveNo() {
+            const btn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            yesScale += 0.18;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            btn.style.zIndex = "3000";
+        }
+
+        function showSuccess() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            for(let i=0; i<50; i++) {
+                setTimeout(() => spawnParticle(['✨', '💫', '🌌', '💜'][Math.floor(Math.random()*4)]), i * 35);
+            }
+        }
+    </script>
+</body>
+</html>
